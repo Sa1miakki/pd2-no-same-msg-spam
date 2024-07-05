@@ -1,6 +1,6 @@
 {
-	"name" : "No same message spam",
-	"description" : "No same message spam.",
+	"name" : "No duplicate message spam",
+	"description" : "No duplicate message spam.",
 	"author" : "Sa1miakki",
 	"version" : "1",
         "priority" : -999,
