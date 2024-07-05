@@ -1,0 +1,31 @@
+{
+	"menu_id" : "no_same_spam_menu",
+	"parent_menu_id" : "blt_options",
+	"title" : "no_same_spam_title",
+	"description":"no_same_spam_desc",
+	"back_callback" : "no_same_spam_back",
+	"items" : [
+		{
+			"type" : "multiple_choice",
+			"id" : "no_same_spam_hud_choice",
+			"title" : "no_same_spam_hud_choice_title",
+			"description" : "no_same_spam_hud_choice_desc",
+			"callback" : "no_same_spam_hud_choice_callback",
+			"items" : [
+				"nss_hud_1",
+				"nss_hud_2",
+                                "nss_hud_3",
+                                "nss_hud_4"
+			],
+			"value" : "nss_hud_choice"
+		},
+                {
+			"type" : "toggle",
+			"id" : "no_same_spam_log_file",
+			"title" : "no_same_spam_log_file_title",
+			"description" : "no_same_spam_log_file_desc",
+			"callback" : "no_same_spam_log_file_callback",
+			"value" : "nss_log_enabled"
+		}
+	]
+}

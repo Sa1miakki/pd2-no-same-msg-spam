@@ -1,0 +1,12 @@
+{
+	"no_same_spam_title" : "No same message spam",
+	"no_same_spam_desc":"No same message spam",
+	"no_same_spam_hud_choice_title":"Choose your HUD",
+	"no_same_spam_hud_choice_desc":"Choose your HUD.",
+        "no_same_spam_log_file_title":"save message to msg.ini",
+	"no_same_spam_log_file_desc":"save every message you received to msg.ini",
+	"nss_hud_1":"Default(Unmodded)",
+	"nss_hud_2":"VOID UI",
+        "nss_hud_3":"VanillaHUD Plus",
+        "nss_hud_4":"Custome Chat Standalone"
+}
