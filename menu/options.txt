@@ -15,9 +15,26 @@
 				"nss_hud_1",
 				"nss_hud_2",
                                 "nss_hud_3",
-                                "nss_hud_4"
+                                "nss_hud_4",
 			],
 			"value" : "nss_hud_choice"
+		},
+                {
+			"type" : "slider",
+			"id" : "no_same_spam_record_bar",
+			"title" : "no_same_spam_record_bar_title",
+			"description" : "no_same_spam_record_bar_desc",
+			"callback" : "no_same_spam_record_bar_callback",
+			"value" : "nsms_record",
+			"default_value" : 11,
+			"min" : 1,
+			"max" : 11,
+			"step" : 1
+		},
+                {
+    		        "type" : "divider",
+			"title" : "nsms_blank",
+    		        "size" : 20
 		},
                 {
 			"type" : "toggle",

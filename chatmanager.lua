@@ -1,7 +1,8 @@
 local orig__receive_message = ChatManager._receive_message
 local orig_receive_message_by_peer = ChatManager.receive_message_by_peer
 
-NoSameSapm._path = NoSameSapm.path .. "msg.ini"
+NoSameSapm._path = NoSameSapm.path .. "MessageRecord/"
+local current_time = os.date("*t")
 
 nsms_total_line = nss_total_line or 0 
 
@@ -11,13 +12,13 @@ NSMS_main_record = NSS_main_record or {}
 
 local function writeline(s)
     if NoSameSapm.settings.nss_log_enabled then
-        local file = io.open(NoSameSapm._path, "a")
-	    local current_time = os.date("*t")
+	    local logtime = string.format("%02d-%02d-%02d.txt", current_time.year, current_time.month, current_time.day)
+        local file = io.open(NoSameSapm._path .. logtime, "a")
 	    local s = s .. string.format(" (%02d-%02d-%02d %02d:%02d:%02d) \n", current_time.year, current_time.month, current_time.day, current_time.hour, current_time.min, current_time.sec)
 	    if file then
 		    file:write(s)
 		    file:close()
-	    end
+		end
 	end
 end
 
@@ -34,26 +35,27 @@ local function running(mod)
 end
 
 function ChatManager:_receive_message(channel_id, name, message, color, icon)
-	if name and message and channel_id == 1 or channel_id == 2  then
+	if name and message and (channel_id == 1 or channel_id == 2) then
 	    nsms_total_line = nsms_total_line + 1
 		
 		local teststr2 = string.format("Received '%s : %s' at channel %s. Total lines: %s", name, message, channel_id, nsms_total_line)
 	    writeline(teststr2)
 		
-		NSMS_main_table.name = NSMS_main_table.name or {}
+		NSMS_main_table[name] = NSMS_main_table[name] or {}
 		
-		table.insert(NSMS_main_table.name, nsms_total_line,{
+		table.insert(NSMS_main_table[name], nsms_total_line,{
 		message,
 		nsms_total_line})
 		
-		for i = nsms_total_line - 11, nsms_total_line do
-		    if NSMS_main_table.name[i] and message == NSMS_main_table.name[i][1] and i ~= nsms_total_line then --信息重复
+		for i = nsms_total_line - NoSameSapm.settings.nsms_record, nsms_total_line do
+		    if NSMS_main_table[name][i] and message == NSMS_main_table[name][i][1] and i ~= nsms_total_line then
 		        
-				local teststr = string.format("!!%s's msg : '%s' is same as line %s!!", name, NSMS_main_table.name[i][1], i)
+				local teststr = string.format("!!%s's msg : '%s' is same as line %s!!", name, NSMS_main_table[name][i][1], i)
 		        writeline(teststr)
 		
 				NSMS_main_times[i] = NSMS_main_times[i] and NSMS_main_times[i] + 1 or 2
-			    table.remove(NSMS_main_table.name, nsms_total_line)
+				  
+			    table.remove(NSMS_main_table[name], nsms_total_line)
 				
 				local newstr = string.format("%s: %s (x%s)", name, message, NSMS_main_times[i])
 				
@@ -94,7 +96,7 @@ function ChatManager:_receive_message(channel_id, name, message, color, icon)
 				break
 			else
 			    self._this_line_dup = false
-			end
+            end
 		end
 		
 		if not self._this_line_dup then

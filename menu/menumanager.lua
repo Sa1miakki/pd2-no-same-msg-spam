@@ -3,6 +3,7 @@ NoSameSapm.path = ModPath
 NoSameSapm.save_path = SavePath .. "NoSameSapm.txt"
 NoSameSapm.settings = {
     nss_hud_choice = 1,
+	nsms_record = 11,
 	nss_log_enabled = false
 }
 
@@ -41,6 +42,12 @@ Hooks:Add("MenuManagerInitialize", "NoSameSapm_MenuManagerInitialize", function(
 	MenuCallbackHandler.no_same_spam_hud_choice_callback = function(self,item)
 		local value = tonumber(item:value())
 		NoSameSapm.settings.nss_hud_choice = value
+		NoSameSapm:Save()
+	end
+	
+	MenuCallbackHandler.no_same_spam_record_bar_callback = function(self,item)
+		local value = math.floor(item:value())
+		NoSameSapm.settings.nsms_record = value
 		NoSameSapm:Save()
 	end
 	

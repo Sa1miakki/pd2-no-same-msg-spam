@@ -2,9 +2,17 @@
 	"name" : "No duplicate message spam",
 	"description" : "No duplicate message spam.",
 	"author" : "Sa1miakki",
-	"version" : "1",
+	"version" : "1.0",
         "priority" : -999,
 	"blt_version" : 2,
+        "updates" : [
+		{
+			"identifier" : "pd2_nsm_spam",
+			"host" : {
+				"meta" : "https://github.com/Sa1miakki/pd2-no-same-msg-spam/raw/main/meta.json"
+			}
+		}
+	],
 	"hooks" : [
 		{"hook_id" : "lib/managers/chatmanager","script_path": "chatmanager.lua"},
                 {"hook_id" : "lib/network/base/basenetworksession","script_path": "basenetworksession.lua"},
