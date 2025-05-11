@@ -2,7 +2,7 @@
 	"name" : "No duplicate message spam",
 	"description" : "No duplicate message spam.",
 	"author" : "Sa1miakki",
-	"version" : "1.1",
+	"version" : "1.2",
         "priority" : -999,
 	"blt_version" : 2,
         "updates" : [
