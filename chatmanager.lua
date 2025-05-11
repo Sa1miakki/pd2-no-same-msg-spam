@@ -2,7 +2,6 @@ local orig__receive_message = ChatManager._receive_message
 local orig_receive_message_by_peer = ChatManager.receive_message_by_peer
 
 NoSameSapm._path = NoSameSapm.path .. "MessageRecord/"
-local current_time = os.date("*t")
 
 nsms_total_line = nss_total_line or 0 
 
@@ -12,6 +11,7 @@ NSMS_main_record = NSS_main_record or {}
 
 local function writeline(s)
     if NoSameSapm.settings.nss_log_enabled then
+		local current_time = os.date("*t")
 	    local logtime = string.format("%02d-%02d-%02d.txt", current_time.year, current_time.month, current_time.day)
         local file = io.open(NoSameSapm._path .. logtime, "a")
 	    local s = s .. string.format(" (%02d-%02d-%02d %02d:%02d:%02d) \n", current_time.year, current_time.month, current_time.day, current_time.hour, current_time.min, current_time.sec)
@@ -64,17 +64,17 @@ function ChatManager:_receive_message(channel_id, name, message, color, icon)
 				end
 			
 			
-				if running("VANILLA") then
+				if running("VANILLA") and NSMS_ingame_record then
 				    if NSMS_ingame_record[2 * i - 1] and NSMS_ingame_record[2 * i - 1][1] then
 				        NSMS_ingame_record[2 * i - 1][1]:set_text(newstr)
 				    end
-				elseif running("VOIDUI") then
+				elseif running("VOIDUI") and NSMS_ingame_record then
 				    local time = VoidUI.options.chattime == 2 and "[".. os.date('!%X', managers.game_play_central:get_heist_timer()) .. "] " or "[".. os.date('%X') .. "] "
 					if NSMS_ingame_record[2 * i - 1] and NSMS_ingame_record[2 * i - 1][1] and NSMS_ingame_record[2 * i - 1][2] then
 					    NSMS_ingame_record[2 * i - 1][1]:set_text(time..newstr)
 					    NSMS_ingame_record[2 * i - 1][2]:set_text(time..newstr)
 					end
-				elseif running("CUSTOM") or running("VANILLAPLUS") then
+				elseif ( running("CUSTOM") or running("VANILLAPLUS") ) and NSMS_ingame_record then
 				    local heisttime = managers.game_play_central and managers.game_play_central:get_heist_timer() or 0
 		            local hours = math.floor(heisttime / (60*60))
 		            local minutes = math.floor(heisttime / 60) % 60
